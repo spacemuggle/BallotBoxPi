@@ -128,6 +128,30 @@ def CopyFiles(orig, dest):
 # CopyFiles(orig = fr, dest = to, files = f_list)
 
 #########################################################
+# function to convert mp3 to wav
+
+# # sudo pip3 install pydub # at command line
+# from pydub import AudioSegment
+# 
+# testmp3 = "/media/pi/MP3'S/felfa.mp3"
+# dest = "/media/pi/MP3'S/felfa.wav"
+# 
+# snd = AudioSegment.from_mp3(testmp3)
+# snd.export(dest, format="wav")
+from pydub import AudioSegment
+
+def mp3_2_wav(file):
+    path, ext = os.path.splitext(file)
+    ext = '.wav'
+    src = file
+    dst = path + ext
+    snd = AudioSegment.from_mp3(src)
+    snd.export(dst, format = "wav")
+    # delete MP3
+    os.remove(file)
+    
+    
+#########################################################
 # pull out fpaths to sounds as list and volume as int var
 # (defaults volume to 100 if issue occurs)
 def OrgInputData(loc):
@@ -138,8 +162,11 @@ def OrgInputData(loc):
     for file in files:
         # store full file path
         full_path = os.path.join(loc, file)
-        # store .wav and .mp3 fpaths in sounds
-        if file.endswith('.wav') or file.endswith('.mp3'):
+        # convert mp3 to wav
+        if file.endswith('.mp3'):
+            mp3_2_wav(full_path)
+        # store wav to sounds list
+        if file.endswith('.wav'):
             sounds.append(full_path)
         # pull volume from .txt file
         # (works on any fname containing "vol")
@@ -160,3 +187,4 @@ def OrgInputData(loc):
 # loc_f = "/home/pi/Documents/Projects/BallotBoxPi/sounds"
 # sounds, volume = OrgInputData(loc = loc_f)
 # # works as intended!
+        

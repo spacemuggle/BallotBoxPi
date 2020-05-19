@@ -1,4 +1,5 @@
 import input_funcs as ifns
+import aplay_sound as aplay
 
 # set USB and Local file locations
 USB_dir = "/media/pi/MP3'S"
@@ -33,9 +34,23 @@ elif not USB_empty:
 # Get full paths to sounds and the volume as an int(0,100)
 sounds, volume = ifns.OrgInputData(Loc_dir)
 ###################################################
-# Not currently working, need to create function
-# for main input stream handling and build overarching
-# if statement into seperate function.
-# then consider if there is a good way to combine this
-# with the contents of input_funcs.py to avoid import
-# complexity
+# set volume
+aplay.set_volume(volume)
+# # choose sound
+# sound = aplay.choose_sound(sounds)
+# # play sound
+# aplay.play_sound(sound)
+
+sound = aplay.choose_sound(sounds)
+last = aplay.play_sound(sound)
+
+i = 0
+again = True
+while again == True:
+    while sound == last:
+        sound = aplay.choose_sound(sounds)
+        
+    last = aplay.play_sound(sound)
+    i = i + 1
+    if i > 10:
+        again = False
