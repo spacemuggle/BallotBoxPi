@@ -3,7 +3,7 @@ import aplay_sound as aplay
 
 # set USB and Local file locations
 USB_dir = "/media/pi/MP3'S"
-Loc_dir = "/home/pi/Documents/Projects/BallotBoxPi/sounds"
+Loc_dir = "/home/pi/Coding/Projects/BallotBoxPi/sounds"
 
 # Determine exists for both dirs
 USB_exist = ifns.CheckDirsExist(USB_dir)
