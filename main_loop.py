@@ -49,7 +49,6 @@ try:
     # create input callback
     def trip_action(recent, sounds):
         # if sound was recently played, pick a new one
-        print(f"start trip\nlen sounds: {len(sounds)}\nlen recent: {len(recent)}")
         sound = aplay.choose_sound(sounds)
         while sound in recent:
             sound = aplay.choose_sound(sounds)
@@ -69,7 +68,7 @@ try:
     ################################################## 
     # start infinite loop
     ##################################################
-    recent = [""] * 5
+    recent = [""] * int(len(sounds)/2)
     while True:
         time.sleep(0.05)
         for pin in ins:

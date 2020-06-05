@@ -1,11 +1,12 @@
 import os
 import random as rnd
 
+max_sound_len = 5
 # sound_path = '/home/pi/Documents/Projects/BallotBoxPi/sounds/lazer3.wav'
 # os.system('aplay ' + sound_path)
 def choose_sound(sounds):
     #get rand sound
-    rand_sound = int(round(len(sounds) * rnd.random(), 0))
+    rand_sound = int(round((len(sounds)-1) * rnd.random(), 0))
     sound = sounds[rand_sound]
     return(sound)
 
@@ -14,5 +15,5 @@ def set_volume(volume):
     os.system('amixer set PCM {}%'.format(volume))
 
 def play_sound(sound):
-    os.system('aplay ' + sound)
+    os.system(f'aplay -q -d {max_sound_len} {sound}')
     return(sound)
