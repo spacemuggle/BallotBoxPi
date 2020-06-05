@@ -33,24 +33,6 @@ elif not USB_empty:
 
 # Get full paths to sounds and the volume as an int(0,100)
 sounds, volume = ifns.OrgInputData(Loc_dir)
-###################################################
-# set volume
+
+# Set system volume
 aplay.set_volume(volume)
-# # choose sound
-# sound = aplay.choose_sound(sounds)
-# # play sound
-# aplay.play_sound(sound)
-
-sound = aplay.choose_sound(sounds)
-last = aplay.play_sound(sound)
-
-i = 0
-again = True
-while again == True:
-    while sound == last:
-        sound = aplay.choose_sound(sounds)
-        
-    last = aplay.play_sound(sound)
-    i = i + 1
-    if i > 10:
-        again = False

@@ -25,40 +25,6 @@ def CheckDirsExist(paths):
 # it works, I think, didn't do extensive testing
 
 ########################################################
-# function that checks if two directories hold the same file names
-# (will not detect changes to files that keep the same names aka volume)
-def NewFileCheck(new_p, old_p):
-    '''Check if two dirs have same files (ignores dirs)'''
-    # if target dest for new files DNE, return True
-    if not os.path.isdir(old_p):
-        return(True)
-    # if source dest for comparing files DNE, return False
-    if not os.path.isdir(new_p):
-        return(False)
-    # get directory contents as list
-    new_files = os.listdir(new_p)
-    old_files = os.listdir(old_p)
-    # store lists as iterable
-    file_lists = [new_files, old_files]
-    # remove anything that is not a file from lists
-    for files in file_lists:    
-        for fname in files:
-            full_path = os.path.join(new_p, fname)
-            if not os.path.isfile(full_path):
-                files.remove(fname)
-        # sort lists for comparing
-        files.sort()
-    # compare lists (return True for differences)
-    return(new_files != old_files)
-    
-# # test function usability
-# p_n = "/media/pi/MP3'S"
-# p_o = "/home/pi/Documents/Projects/BallotBoxPi/sounds"
-# new_file = NewFileCheck(new_p = p_n, old_p = p_o)
-# print(new_file)
-# # it works! passes True if difference is found and False ow
-
-########################################################
 # function to delete files so new ones can go in
 # deletes every file in the directory but not the dir
 def DeleteDirFiles(loc):
@@ -165,6 +131,8 @@ def OrgInputData(loc):
         # convert mp3 to wav
         if file.endswith('.mp3'):
             mp3_2_wav(full_path)
+            wav_path = os.path.splitext(full_path)[0] + '.wav'
+            sounds.append(wav_path)
         # store wav to sounds list
         if file.endswith('.wav'):
             sounds.append(full_path)

@@ -5,8 +5,9 @@ import random as rnd
 # os.system('aplay ' + sound_path)
 def choose_sound(sounds):
     #get rand sound
-    rand_sound = rnd.choice(sounds)
-    return(rand_sound)
+    rand_sound = int(round(len(sounds) * rnd.random(), 0))
+    sound = sounds[rand_sound]
+    return(sound)
 
 def set_volume(volume):
     os.system('amixer set PCM unmute')
@@ -15,4 +16,3 @@ def set_volume(volume):
 def play_sound(sound):
     os.system('aplay ' + sound)
     return(sound)
-    
