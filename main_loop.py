@@ -52,6 +52,9 @@ try:
         sound = aplay.choose_sound(sounds)
         while sound in recent:
             sound = aplay.choose_sound(sounds)
+        # exit early if only one sound exists
+        if len(sounds) == 1:
+            return(recent)
         # play the new sound
         aplay.play_sound(sound)
         # record sound as recently played
@@ -59,6 +62,9 @@ try:
         # remove first item in recently played
         recent.remove(recent[0])
         return(recent)
+    
+    # initialize recent array (handles only 1 sound edge case)
+    recent = [""] * (int(len(sounds)/2.01) + 1)
 
     # start event detection
     def start_detection(pins):
@@ -77,7 +83,6 @@ try:
     ##################################################
     # start infinite loop
     ##################################################
-    recent = [""] * int(len(sounds)/2) # makes sure cycle seems random
 #    i = 0
     while True:
         time.sleep(0.05)
