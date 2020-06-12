@@ -5,15 +5,23 @@ import os, shutil
 # function to check if path or list of paths are all dirs
 def CheckDirsExist(paths):
     '''Checks if dir or dirs exist, returns false if at least 1 DNE'''
-    if type(paths) == list:            
+    if type(paths) == list:
         for p in paths:
-            if not os.path.isdir(p):
+            try:
+                if not os.path.isdir(p):
+                    return(False)
+                else:
+                    return(True)
+            except:
                 return(False)
-        return(True)
     elif type(paths) == str:
-        if not os.path.isdir(paths):
+        try:
+            if not os.path.isdir(paths):
+                return(False)
+            else:
+                return(True)
+        except:
             return(False)
-        return(True)
     else:
         return('wrong type')
 
@@ -51,11 +59,13 @@ def DeleteDirFiles(loc):
 # returns True if dir is empty and False ow
 def CheckEmpty(loc):
     '''Checks if any files exist in given dir'''
-    if len(os.listdir(loc)) == 0:
+    try:
+        if len(os.listdir(loc)) == 0:
+            return(True)
+        else:
+            return(False)
+    except:
         return(True)
-    else:
-        return(False)
-
 # # test function usability
 # dirloc = "/media/pi/MP3'S"
 # # works as inteded!

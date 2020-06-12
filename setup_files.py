@@ -2,7 +2,7 @@ import input_funcs as ifns
 import aplay_sound as aplay
 
 # set USB and Local file locations
-USB_dir = "/media/pi/MP3'S"
+USB_dir = "/media/pi/MP3"
 Loc_dir = "/home/pi/Coding/Projects/BallotBoxPi/sounds"
 
 # Determine exists for both dirs
@@ -14,7 +14,7 @@ USB_empty, Loc_empty = True, True
 if USB_exist:
     USB_empty = ifns.CheckEmpty(USB_dir)
 if Loc_exist:
-    Loc_empty = ifns.CheckEmpty(USB_dir)
+    Loc_empty = ifns.CheckEmpty(Loc_dir)
 
 # Case 0: USB DNE or empty & Local dir DNE or empty
 #        >print error

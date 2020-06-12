@@ -10,7 +10,7 @@ try:
     # bring in sounds from setup_files.py
     #################################################
     sounds = setup_files.sounds
-    
+
     #################################################
     # set up inputs/ outputs and turn on lasers #####
     #################################################
@@ -61,24 +61,35 @@ try:
         return(recent)
 
     # start event detection
-    for pin in ins:
-        GPIO.add_event_detect(pin, GPIO.RISING,
-                              bouncetime = 250)
-    
-    ################################################## 
+    def start_detection(pins):
+        for pin in pins:
+            GPIO.add_event_detect(pin, GPIO.RISING,
+                                  bouncetime = 250)
+
+    # end event detection
+    def end_detection(pins):
+        for pin in pins:
+            GPIO.remove_event_detect(pin)
+
+    # start initial event detection
+    start_detection(ins)
+
+    ##################################################
     # start infinite loop
     ##################################################
-    recent = [""] * int(len(sounds)/2)
+    recent = [""] * int(len(sounds)/2) # makes sure cycle seems random
+#    i = 0
     while True:
         time.sleep(0.05)
+#        i += 1
         for pin in ins:
             if GPIO.event_detected(pin):
-                GPIO.remove_event_detect(pin)
+                end_detection(ins)
                 recent = trip_action(recent, sounds)
-                GPIO.add_event_detect(pin, GPIO.RISING,
-                                      bouncetime=250)
-        
+                start_detection(ins)
+#        if i > 1000:
+            break
 # ensure cleanup occurs
-finally:    
+finally:
     # cleanup GPIO
     GPIO.cleanup()
