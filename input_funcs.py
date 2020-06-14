@@ -134,6 +134,7 @@ def OrgInputData(loc):
     '''Formats data and returns(sounds, volume)'''
     sounds = []
     volume = 100
+    max_time = 5
     files = os.listdir(loc)
     for file in files:
         # store full file path
@@ -150,16 +151,24 @@ def OrgInputData(loc):
         # (works on any fname containing "vol")
         elif file.endswith('.txt'):
             if 'vol' in file.lower():
-                volume = open(full_path, 'r').readline()
-                # check if number was pulled
-                try:
+                try: # try to read first line of file
+                    volume = open(full_path, 'r').readline()
+                    # ensure valid input
                     volume = int(volume)
-                    # check if valid number
                     if volume < 0 or volume > 100:
                         volume = 100
                 except:
                     volume = 100
-    return(sounds, volume)
+            elif 'time' in file.lower():
+                try: # try to read first line of file
+                    max_time = open(full_path, 'r').readline()
+                    # ensure valid input
+                    max_time = int(max_time)
+                    if max_time < 1 or max_time > 100:
+                        max_time = 5
+                except:
+                    max_time = 5
+    return(sounds, volume, max_time)
 
 # # test function usability
 # loc_f = "/home/pi/Documents/Projects/BallotBoxPi/sounds"

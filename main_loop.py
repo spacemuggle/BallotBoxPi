@@ -7,10 +7,10 @@ import time, setup_files
 #################################################
 try:
     #################################################
-    # bring in sounds from setup_files.py
+    # bring in sounds / max_time from setup_files.py
     #################################################
     sounds = setup_files.sounds
-
+    max_time = setup_files.max_time
     #################################################
     # set up inputs/ outputs and turn on lasers #####
     #################################################
@@ -47,7 +47,7 @@ try:
     # create callback function/ start event detection
     #################################################
     # create input callback
-    def trip_action(recent, sounds):
+    def trip_action(recent, sounds, max_time):
         # if sound was recently played, pick a new one
         sound = aplay.choose_sound(sounds)
         while sound in recent:
@@ -56,7 +56,7 @@ try:
         if len(sounds) == 1:
             return(recent)
         # play the new sound
-        aplay.play_sound(sound)
+        aplay.play_sound(sound, max_time)
         # record sound as recently played
         recent.append(sound)
         # remove first item in recently played
@@ -90,7 +90,7 @@ try:
         for pin in ins:
             if GPIO.event_detected(pin):
                 end_detection(ins)
-                recent = trip_action(recent, sounds)
+                recent = trip_action(recent, sounds, max_time)
                 start_detection(ins)
 #        if i > 1000:
             break

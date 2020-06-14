@@ -14,6 +14,6 @@ def set_volume(volume):
     os.system('amixer set PCM unmute')
     os.system('amixer set PCM {}%'.format(volume))
 
-def play_sound(sound):
-    os.system(f'aplay -q -d {max_sound_len} {sound}')
+def play_sound(sound, max_time):
+    os.system(f'aplay -q -d {max_time} {sound}')
     return(sound)
