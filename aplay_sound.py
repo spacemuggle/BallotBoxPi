@@ -1,7 +1,6 @@
-import os
+import os, math
 import random as rnd
 
-max_sound_len = 5
 # sound_path = '/home/pi/Documents/Projects/BallotBoxPi/sounds/lazer3.wav'
 # os.system('aplay ' + sound_path)
 def choose_sound(sounds):
@@ -11,6 +10,10 @@ def choose_sound(sounds):
     return(sound)
 
 def set_volume(volume):
+    # convert sound to get desired output sound
+    if volume > 2: # 
+        volume = round(math.log(volume, 1.041616) - 13)
+    # set volume
     os.system('amixer set PCM unmute')
     os.system('amixer set PCM {}%'.format(volume))
 
