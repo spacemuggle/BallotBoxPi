@@ -152,7 +152,8 @@ def OrgInputData(loc):
         elif file.endswith('.txt'):
             if 'vol' in file.lower():
                 try: # try to read first line of file
-                    volume = open(full_path, 'r').readline()
+                    with open(full_path, 'r') as f:
+                        volume = f.readline()
                     # ensure valid input
                     volume = int(volume)
                     if volume < 0 or volume > 100:
@@ -161,7 +162,8 @@ def OrgInputData(loc):
                     volume = 100
             elif 'time' in file.lower():
                 try: # try to read first line of file
-                    max_time = open(full_path, 'r').readline()
+                    with open(full_path, 'r') as f:
+                        max_time = f.readline()
                     # ensure valid input
                     max_time = int(max_time)
                     if max_time < 1 or max_time > 100:
