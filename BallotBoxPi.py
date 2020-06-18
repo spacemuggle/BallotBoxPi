@@ -35,8 +35,10 @@ def set_volume(volume):
     if volume > 2: # 
         volume = round(math.log(volume, 1.041616) - 13)
     # set volume
-    os.system('amixer set PCM unmute')
-    os.system('amixer set PCM {}%'.format(volume))
+    devices = ["PCM", "Master", "Speaker", "Headphone"]
+    for dev in devices:
+        os.system(f'amixer set {dev} unmute')
+        os.system(f'amixer set {dev} {volume}%')
 
 def play_sound(sound, max_time):
     # play sound through set output, return sound path
