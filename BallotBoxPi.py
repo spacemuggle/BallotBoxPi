@@ -14,7 +14,7 @@ Loc_dir = "/home/pi/Coding/Projects/BallotBoxPi/sounds"
 import RPi.GPIO as GPIO
 import random as rnd
 from pydub import AudioSegment
-import os, math, time, setup_files, shutil
+import os, math, time, shutil
 
 #################################################
 #################################################
