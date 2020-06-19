@@ -22,6 +22,27 @@ import os, math, time, shutil
 #################################################
 #################################################
 
+# logger function
+from functools import wraps
+
+log_file = '/home/pi/Code/Projects/BallotBoxPi/bbp_run.log'
+# clear log
+with open(log_file, 'w') as f:
+    f.write('')
+
+def my_logger(original_func):
+    import logging
+    logging.basicConfig(filename=f'{log_file},
+                        level=logging.INFO)
+
+    @wraps(orig_func)
+    def wrapper(*args, **kwargs):
+        result = original_func(*args, **kwargs)
+        logging.info(f'{original_func.__name__} ran with {args} & {kwargs}\n resulting in {result}')
+        return original_func(*args, **kwargs)
+
+    return wrapper
+
 # aplay sound funcs
 #################################################
 def choose_sound(sounds):
@@ -48,6 +69,7 @@ def play_sound(sound, max_time):
 # input functions
 #################################################
 # function to check if path or list of paths are all dirs
+@my_logger
 def CheckDirsExist(paths):
     '''Checks if dir or dirs exist, returns false if at least 1 DNE'''
     if type(paths) == list:
@@ -87,6 +109,7 @@ def DeleteDirFiles(loc):
 
 # checks if any files exist in loc dir
 # returns True if dir is empty and False ow
+@my_logger
 def CheckEmpty(loc):
     '''Checks if any files exist in given dir'''
     try:
@@ -137,6 +160,7 @@ def mp3_2_wav(file, copy=False):
 
 # pull out sound paths as list, volume as int, max time as int
 # (defaults: volume = 100, max_time = 5)
+@my_logger
 def OrgInputData(loc):
     '''Formats data and returns(sounds, volume)'''
     sounds = []
@@ -259,6 +283,13 @@ sounds, volume, max_time = OrgInputData(Loc_dir)
 
 # Set system volume
 set_volume(volume)
+
+#################################################
+# write some more info to the log file
+with open(log_file, 'a') as f:
+    lines = [f'\nUSB_exist : {USB_exist}', f'USB_empty : {USB_empty}',
+             f'Loc_exist : {Loc_exist}', f'Loc_empty : {Loc_empty}'])
+    f.writelines(lines)
 
 #################################################
 #################################################
