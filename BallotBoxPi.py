@@ -27,7 +27,7 @@ from functools import wraps
 
 log_file = '/home/pi/Code/Projects/BallotBoxPi/bbp_run.log'
 # clear log
-with open(log_file, 'w') as f:
+with open(log_file, 'w+') as f:
     f.write('')
 
 def my_logger(original_func):
