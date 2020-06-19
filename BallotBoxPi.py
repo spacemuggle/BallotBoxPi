@@ -32,7 +32,7 @@ with open(log_file, 'w') as f:
 
 def my_logger(original_func):
     import logging
-    logging.basicConfig(filename=f'{log_file},
+    logging.basicConfig(filename=f'{log_file}',
                         level=logging.INFO)
 
     @wraps(orig_func)
