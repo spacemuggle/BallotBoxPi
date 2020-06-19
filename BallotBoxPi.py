@@ -35,7 +35,7 @@ def my_logger(original_func):
     logging.basicConfig(filename=f'{log_file}',
                         level=logging.INFO)
 
-    @wraps(orig_func)
+    @wraps(original_func)
     def wrapper(*args, **kwargs):
         result = original_func(*args, **kwargs)
         logging.info(f'{original_func.__name__} ran with {args} & {kwargs}\n resulting in {result}')
