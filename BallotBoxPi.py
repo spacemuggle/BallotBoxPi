@@ -287,8 +287,8 @@ set_volume(volume)
 #################################################
 # write some more info to the log file
 with open(log_file, 'a') as f:
-    lines = [f'\nUSB_exist : {USB_exist} ', f'USB_empty : {USB_empty} ',
-             f'Loc_exist : {Loc_exist} ', f'Loc_empty : {Loc_empty}']
+    lines = [f'\nUSB_exist : {USB_exist} ', f'\nUSB_empty : {USB_empty} ',
+             f'\nLoc_exist : {Loc_exist} ', f'\nLoc_empty : {Loc_empty}']
     f.writelines(lines)
 
 #################################################
