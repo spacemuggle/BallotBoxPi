@@ -258,6 +258,10 @@ Loc_exist = CheckDirsExist(Loc_dir)
 USB_empty, Loc_empty = True, True
 if USB_exist:
     USB_empty = CheckEmpty(USB_dir)
+    if USB_empty:
+        # remove existing empty directory for USB detection
+        os.system('cd /media/pi')
+        os.system('sudo rmdir MP3')
 if Loc_exist:
     Loc_empty = CheckEmpty(Loc_dir)
 
