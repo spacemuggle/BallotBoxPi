@@ -341,7 +341,6 @@ try:
                 end_detection(ins)
                 recent = trip_action(recent, sounds, max_time)
                 start_detection(ins)
-            break
 # ensure cleanup occurs
 finally:
     # cleanup GPIO
