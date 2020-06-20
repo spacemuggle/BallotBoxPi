@@ -1,41 +1,32 @@
 #################################################
-#################################################
-# set path to USB and Local directory
-#################################################
+# set path to USB, Local directory, and log file
 #################################################
 USB_dir = "/media/pi/MP3"
 Loc_dir = "/home/pi/Coding/Projects/BallotBoxPi/sounds"
+log_file = '/home/pi/Coding/Projects/BallotBoxPi/bbp_run.log'
 
 #################################################
-#################################################
 # set input and output pins (using mode=GPIO.BOARD)
+#################################################
 # pins used for input and output
 outs = [11,13] # lasers
 ins = [5,7] # light sensors
-#################################################
+
 #################################################
 # do all imports
-#################################################
 #################################################
 import RPi.GPIO as GPIO
 import random as rnd
 from pydub import AudioSegment
 import os, math, time, shutil
+from functools import wraps
 
-#################################################
 #################################################
 # set up functions
 #################################################
-#################################################
 
 # logger function
-from functools import wraps
-
-log_file = '/home/pi/Coding/Projects/BallotBoxPi/bbp_run.log'
-# clear log
-with open(log_file, 'w+') as f:
-    f.write('')
-
+#################################################
 def my_logger(original_func):
     import logging
     logging.basicConfig(filename=f'{log_file}',
@@ -245,17 +236,21 @@ def start_detection(pins):
     for pin in pins:
         GPIO.add_event_detect(pin, GPIO.RISING,
                                 bouncetime = 250)
-        print(f'started detection on pin {pin}')
+
 # end event detection
 def end_detection(pins):
     for pin in pins:
         GPIO.remove_event_detect(pin)
-        print(f'ended detection on pin {pin}')
+
 #################################################
 #################################################
 # setup the files and get user inputs
 #################################################
 #################################################
+# clear log, write current time
+with open(log_file, 'w+') as f:
+    f.write(f'start time : {time.time()}')
+
 # Determine exists for both dirs
 USB_exist = CheckDirsExist(USB_dir)
 Loc_exist = CheckDirsExist(Loc_dir)
@@ -294,7 +289,6 @@ sounds, volume, max_time = OrgInputData(Loc_dir)
 # Set system volume
 set_volume(volume)
 
-#################################################
 # write some more info to the log file
 with open(log_file, 'a') as f:
     lines = [f'\nUSB_exist : {USB_exist} ', f'\nUSB_empty : {USB_empty} ',
@@ -302,9 +296,7 @@ with open(log_file, 'a') as f:
     f.writelines(lines)
 
 #################################################
-#################################################
 # set up try/finally to ensure cleanup occurs
-#################################################
 #################################################
 try:
     # set up inputs/ outputs and turn on lasers
@@ -337,7 +329,6 @@ try:
         time.sleep(0.05)
         for pin in ins:
             if GPIO.event_detected(pin):
-                print(f'pin {pin} tripped')
                 end_detection(ins)
                 recent = trip_action(recent, sounds, max_time)
                 start_detection(ins)
