@@ -8,6 +8,12 @@ Loc_dir = "/home/pi/Coding/Projects/BallotBoxPi/sounds"
 
 #################################################
 #################################################
+# set input and output pins (using mode=GPIO.BOARD)
+# pins used for input and output
+outs = [11,13] # lasers
+ins = [5,7] # light sensors
+#################################################
+#################################################
 # do all imports
 #################################################
 #################################################
@@ -239,12 +245,12 @@ def start_detection(pins):
     for pin in pins:
         GPIO.add_event_detect(pin, GPIO.RISING,
                                 bouncetime = 250)
-
+        print(f'started detection on pin {pin}')
 # end event detection
 def end_detection(pins):
     for pin in pins:
         GPIO.remove_event_detect(pin)
-
+        print(f'ended detection on pin {pin}')
 #################################################
 #################################################
 # setup the files and get user inputs
@@ -305,9 +311,6 @@ try:
     #################################################
     # set mode
     GPIO.setmode(GPIO.BOARD)
-    # pins used for input and output
-    outs = [11,13] # lasers
-    ins = [5,7] # light sensors
     # setup input and output pins
     GPIO.setup(outs, GPIO.OUT)
     GPIO.setup(ins, GPIO.IN) # sensors read 1 for dark and 0 for light
@@ -334,6 +337,7 @@ try:
         time.sleep(0.05)
         for pin in ins:
             if GPIO.event_detected(pin):
+                print(f'pin {pin} tripped')
                 end_detection(ins)
                 recent = trip_action(recent, sounds, max_time)
                 start_detection(ins)
