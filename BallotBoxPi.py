@@ -295,6 +295,7 @@ with open(log_file, 'a') as f:
              f'\nLoc_exist : {Loc_exist} ', f'\nLoc_empty : {Loc_empty}']
     f.writelines(lines)
 
+
 #################################################
 # set up try/finally to ensure cleanup occurs
 #################################################
@@ -332,7 +333,10 @@ try:
                 end_detection(ins)
                 recent = trip_action(recent, sounds, max_time)
                 start_detection(ins)
+
+
 # ensure cleanup occurs
+#################################################
 finally:
     # cleanup GPIO
     GPIO.cleanup()
