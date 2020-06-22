@@ -17,6 +17,8 @@ This code turns a raspberry pi into a dual laser trip sensor that plays a random
 
 * Notes - Whenever a drive is plugged in it will delete the local files and copy over all the files in case a setting has changed. If you plug in an empty drive named MP3 it will **delete all the music**. Make sure if you are changing the volume or maxtime that the sounds on the drive are the sounds you want on the pi. You can keep the drive in the pi if you want but it will slightly slow down the startup.
 
+* For troubleshooting and more detailed information, check out the [wiki](https://github.com/spacemuggle/BallotBoxPi/wiki)!
+
 ## Notes:
 
 * To connect bluetooth speakers you can follow this [tutorial](https://pimylifeup.com/raspberry-pi-bluetooth/)
