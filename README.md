@@ -19,7 +19,7 @@ This code turns a raspberry pi into a dual laser trip sensor that plays a random
 
 ## Notes:
 
-* To add bluetooth you can follow this [tutorial](https://pimylifeup.com/raspberry-pi-bluetooth/)
+* To connect bluetooth speakers you can follow this [tutorial](https://pimylifeup.com/raspberry-pi-bluetooth/)
 * Created sensor array frame (https://www.thingiverse.com/thing:4444818)
 * Added autostart using systemd following this [documentation](https://www.raspberrypi.org/documentation/linux/usage/systemd.md)
 * Code restarts on flashdrive plugin or unplug
