@@ -313,9 +313,10 @@ try:
     if pass_test == True:
         GPIO.output(outs, GPIO.HIGH)
     else:
-        for i in range(20):
+        for i in range(10):
             GPIO.output(outs, not GPIO.input(outs[0]))
-            time.sleep(1)
+            time.sleep(.5)
+        GPIO.output(outs, GPIO.HIGH)
 
     # start event detection/ init recent array
     #################################################    
