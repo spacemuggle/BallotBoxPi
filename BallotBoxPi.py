@@ -2,8 +2,10 @@
 # set path to USB, Local directory, and log file
 #################################################
 USB_dir = "/media/pi/MP3"
-Loc_dir = "/home/pi/Coding/Projects/BallotBoxPi/sounds"
-log_file = '/home/pi/Coding/Projects/BallotBoxPi/bbp_run.log'
+Main_dir = "/home/pi/Coding/Projects/BallotBoxPi"
+
+Loc_dir = Main_dir + '/sounds'
+log_file = Main_dir + '/bbp_run.log'
 
 #################################################
 # set input and output pins (using mode=GPIO.BOARD)
