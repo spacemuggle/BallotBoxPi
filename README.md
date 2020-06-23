@@ -21,7 +21,7 @@ This code turns a raspberry pi into a dual laser trip sensor that plays a random
 
 ## Notes:
 
-* To connect bluetooth speakers you can follow this [tutorial](https://pimylifeup.com/raspberry-pi-bluetooth/)
+* To connect bluetooth speakers you can follow this [tutorial](https://howchoo.com/g/yzayn2zimtb/bluetooth-raspberry-pi?ref=related_guide_block)
 * If you connect to wifi to SSH in, the default username is "pi" and the default password is "ballotboxpi"
 * Created sensor array frame (https://www.thingiverse.com/thing:4444818)
 * Added autostart using systemd following this [documentation](https://www.raspberrypi.org/documentation/linux/usage/systemd.md)
